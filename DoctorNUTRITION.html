@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health Tabs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            background-color: hwb(0 95% 5% / 0);
+            background-image: url("D:\/MR.jpg");
+        }
+
+        .diet-plan-container {
+            font-family: Arial, sans-serif;
+            background-color: hwb(0 95% 5% / 0);
+            font-family: Arial, sans-serif;
+            background-image: url("D:/background02.jpg");
+            background-color: hwb(0 95% 5% / 0);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .diet-plan-container .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .diet-plan-container h2 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .diet-plan-container .plan-selection {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .diet-plan-container .plan-selection button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .diet-plan-container .plan-selection button:hover {
+            background-color: #45a049;
+        }
+
+        .diet-plan-container .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: transparent;
+        }
+
+        .diet-plan-container .schedule-table th,
+        .diet-plan-container .schedule-table td {
+            padding: 10px;
+            text-align: center;
+            background-color: transparent;
+        }
+
+        .diet-plan-container .schedule-table th {
+            font-weight: bold;
+        }
+
+        .diet-plan-container .schedule-table td {
+            background-color: transparent;
+        }
+
+        .diet-plan-container .schedule-table input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .diet-plan-container .print-button {
+            text-align: right;
+        }
+
+        .diet-plan-container .print-button button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #09c3e4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .tab {
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: #ccc;
+            color: #fff;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: #fff;
+            color: #333;
+            border-bottom: 1px solid #ccc;
+            cursor: default;
+        }
+
+        .tab:hover {
+            background-color: #ddd;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .result-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-container">
+        <div class="tab active" onclick="openTab(event, 'medicalRecord')">Medical Record</div>
+        <div class="tab" onclick="openTab(event, 'dietPlan')">Diet Plan</div>
+    </div>
+
+    <div id="medicalRecord" class="tab-content active">
+        <h2>Medical Record</h2>
+        <div class="container">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Enter Name">
+                <button id="searchButton">Search</button>
+            </div>
+            <div id="resultContainer" class="result-container">
+                <h3 id="name">Michel Mohamed</h3>
+                <p><strong>Date of Birth:</strong> 1990-01-01</p>
+                <p><strong>Gender:</strong> Male</p>
+                <p><strong>Existing Medical Conditions:</strong> Hypertension, Diabetes</p>
+                <p><strong>Allergies:</strong> Penicillin, Peanuts</p>
+                <p><strong>Current Medications:</strong> Aspirin</p>
+                <p><strong>Past Medications:</strong> Ibuprofen</p>
+                <p><strong>Additional Notes:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="dietPlan" class="tab-content">
+        <h2>Diet Plan</h2>
+        <div class="print-button">
+            <button onclick="window.print()">Print</button>
+        </div>
+        <div class="plan-selection">
+            <button id="weeklyButton">Weekly Plan</button>
+            <button id="monthlyButton">Monthly Plan</button>
+        </div>
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Breakfast</th>
+                <th>Lunch</th>
+                <th>Dinner</th>
+              </tr>
+            </thead>
+            <tbody id="scheduleBody">
+              <!-- Table rows for diet plan -->
+              </thead>
+            <tbody id="scheduleBody">
+              <tr>
+                <td>Saturday</td>
+                <td><input type="text" name="SaturdayBreakfast"></td>
+                <td><input type="text" name="SaturdayLunch"></td>
+                <td><input type="text" name="SaturdayDinner"></td>
+              </tr>
+              <tr>
+                <td>Sunday</td>
+                <td><input type="text" name="SundayBreakfast"></td>
+                <td><input type="text" name="SundayLunch"></td>
+                <td><input type="text" name="SundayDinner"></td>
+              </tr>
+              <tr>
+                  <td>Monday</td>
+                  <td><input type="text" name="mondayBreakfast"></td>
+                  <td><input type="text" name="mondayLunch"></td>
+                  <td><input type="text" name="mondayDinner"></td>
+              </tr>
+              <tr>
+                <td>Tuesday</td>
+                <td><input type="text" name="tuesdayBreakfast"></td>
+                <td><input type="text" name="tuesdayLunch"></td>
+                <td><input type="text" name="tuesdayDinner"></td>
+              </tr>
+              <tr>
+                <td>Wednesday</td>
+                <td><input type="text" name="wednesdayBreakfast"></td>
+                <td><input type="text" name="wednesdayLunch"></td>
+                <td><input type="text" name="wednesdayDinner"></td>
+              </tr>
+              <tr>
+                <td>Thursday</td>
+                <td><input type="text" name="ThursdayBreakfast"></td>
+                <td><input type="text" name="ThursdayLunch"></td>
+                <td><input type="text" name="ThursdayDinner"></td>
+              </tr>
+              <tr>
+                <td>Friday</td>
+                <td><input type="text" name="FridaydayBreakfast"></td>
+                <td><input type="text" name="FridaydayLunch"></td>
+                <td><input type="text" name="FridaydayDinner"></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = "none";
+            }
+
+            var tabs = document.getElementsByClassName("tab");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].className = tabs[i].className.replace(" active", "");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+        window.onload = function() {
+          var searchButton = document.getElementById('searchButton');
+          var resultContainer = document.getElementById('resultContainer');
+      
+          searchButton.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var searchInput = document.getElementById('searchInput').value.toLowerCase();
+            var name = document.getElementById('name').textContent.toLowerCase();
+
+            if (name === searchInput) {
+              resultContainer.style.display = 'block';
+            } else {
+              resultContainer.style.display = 'none';
+              alert('No matching medical record found for the provided name.');
+            }
+          });
+        };
+    </script>
+</body>
+</html>

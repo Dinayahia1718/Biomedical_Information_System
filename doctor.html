@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Doctor View</title>
+    <style>
+            body {
+        background-color: white; /* Set the background color of the body */
+        margin: 0; /* Remove margin from body */
+        padding: 0; /* Remove padding from body */
+        overflow-y: hidden;
+
+      }
+      /* Style for the header */
+      header {
+        background-color: #222024;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin: 0;
+      }
+      
+      /* Style for the tabs */
+      .tab-btns {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Add this property to center the items vertically */
+    margin-bottom: 10px;
+  }
+  
+  .tab-btn {
+  background-color: #f2f2f2;
+  border: none;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin-right: 10px;
+  cursor: pointer;
+  flex-grow: 1; /* Add this property */
+}
+  
+  .active-btn {
+    background-color: gray;
+    color: white;
+  }
+  
+  #logout-btn {
+    margin-left: 10px;
+  }
+      
+      /* Style for the forms */
+      .tab {
+        display: none;
+      }
+      
+      .form-row {
+        margin-bottom: 10px;
+      }
+      
+      .form-col {
+        display: inline-block;
+        width: 50%;
+        padding: 5px;
+      }
+      
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+#soap1 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding-top: 20px; /* adjust the value to your preference */
+  flex-wrap: wrap;
+}
+#soap1 .form-row:first-child {
+  margin-top: 10px; /* adjust the value to your preference */
+}
+
+#soap1 .form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px; /* adjust the value to your preference */
+  flex: 1;
+  margin-right: 10px;
+}
+
+#soap1 .form-col label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  #soap1 .form-row {
+    flex-basis: 100%;
+    margin-right: 0;
+  }
+
+}
+      
+  /* Style for the save button */
+  .save-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 20px auto 0;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.save-btn:hover {
+  background-color: #166019;
+}
+
+#patient-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#patient-table th, #patient-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#patient-table th {
+  background-color: #f2f2f2;
+}
+
+#patient-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Patient Record</h1>
+      <div class="tab-btns">
+        <button class="tab-btn active-btn" onclick="showTab('soap1')">SOAP1</button>
+        <button class="tab-btn" onclick="showTab('soap2')">SOAP2</button>
+        <button class="tab-btn" onclick="showTab('medical-report')">MEDICAL REPORT</button>
+        <button class="tab-btn" onclick="showTab('patient-history')">PATIENT HISTORY</button>
+        <button class="tab-btn" id="logout-btn" onclick="logout()">LOG OUT</button>
+      </div>
+    </header>
+    
+    <form id="soap1" class="tab active">
+      <div class="form-container">
+        <!-- Personal Information -->
+        <div class="form-row">
+          <div class="form-col">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+          </div>
+          <div class="form-col">
+            <label for="medical-number">Medical Number:</label>
+            <input type="text" id="medical-number" name="medical-number">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age">
+          </div>
+          <div class="form-col">
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="patient-entry-date">Patient Entry Date:</label>
+            <input type="datetime-local" id="patient-entry-date" name="patient-entry-date">
+          </div>
+          <div class="form-col">
+            <label for="patient-type">Patient:</label>
+            <select id="patient-type" name="patient-type">
+              <option value="outpatient">Outpatient</option>
+              <option value="inpatient">Inpatient</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="num-sessions">Number of Sessions:</label>
+            <select id="num-sessions" name="num-sessions">
+              <option value="8 sessions">8 Sessions</option>
+              <option value="6-12 sessions">6-12 Sessions</option>
+              <option value="12-20 sessions">12-20 Sessions</option>
+              <option value="20-30 sessions">20-30 Sessions</option>
+            </select>
+          </div>
+        </div>
+    
+        <!-- Subjective -->
+        <h3>Subjective</h3>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="payment-process">Payment Process:</label>
+            <input type="text" id="payment-process" name="payment-process">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="patient-history">Patient History:</label>
+            <br>
+            <input type="checkbox" id="dm" name="dm">
+            <label for="dm">DM</label>
+            <input type="checkbox" id="hypertension" name="hypertension">
+            <label for="hypertension">Hypertension</label>
+            <input type="checkbox" id="cardiac" name="cardiac">
+            <label for="cardiac">Cardiac</label>
+            <input type="checkbox" id="liver" name="liver">
+            <label for="liver">Liver</label>
+            <input type="checkbox" id="renal" name="renal">
+            <label for="renal">Renal</label>
+            <input type="checkbox" id="others" name="others">
+            <label for="others">Others</label>
+          </div>
+          <div class="form-col">
+            <label for="diagnosis">Diagnosis:</label>
+            <select id="diagnosis" name="diagnosis">
+              <option value="DM">DM</option>
+              <option value="Hypertension">Hypertension</option>
+              <option value="Cardiac">Cardiac</option>
+              <option value="Liver">Liver</option>
+              <option value="Renal">Renal</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    
+      <button type="button" class="save-btn" onclick="saveData('soap1')">Save</button>
+    </form>
+    <form id="soap2" class="tab">
+      <div class="form-row">
+        <div class="form-col">
+          <label for="symptoms">Symptoms:</label>
+          <textarea id="symptoms" name="symptoms"></textarea>
+        </div>
+        <div class="form-col">
+          <label for="diagnosis">Diagnosis:</label>
+          <textarea id="diagnosis" name="diagnosis"></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label for="treatment">Treatment:</label>
+          <textarea id="treatment" name="treatment"></textarea>
+        </div>
+        <div class="form-col">
+          <label for="notes">Notes:</label>
+          <textarea id="notes" name="notes"></textarea>
+        </div>
+      </div>
+      <button type="button" class="save-btn" onclick="saveData('soap2')">Save</button>
+    </form>
+    <form id="medical-report" class="tab">
+      <div class="form-row">
+        <div class="form-col">
+          <label for="medical-condition">Medical Condition:</label>
+          <textarea id="medical-condition" name="medical-condition"></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label for="medications">Medications:</label>
+          <textarea id="medications" name="medications"></textarea>
+        </div>
+        <div class="form-col">
+          <label for="dosage">Dosage:</label>
+          <textarea id="dosage" name="dosage"></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label for="allergies">Allergies:</label>
+          <textarea id="allergies" name="allergies"></textarea>
+        </div>
+        <div class="form-col">
+          <label for="reactions">Reactions:</label>
+          <textarea id="reactions" name="reactions"></textarea>
+        </div>
+      </div>
+      <button type="button" class="save-btn" onclick="saveData('medical-report')">Save</button>
+    </form>
+    <form id="patient-history" class="tab">
+      <div id="patient-history" class="tabcontent">
+        <table id="patient-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Family Name</th>
+              <th>Name</th>
+              <th>Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                
+           </tr>   
+
+      </tbody>
+        </table>
+      </div>
+    </form>
+    <script>
+      // Show the active tab on page load
+      document.querySelector('.tab.active').style.display = 'block';
+      
+      // Show the selected tab and hide the others
+      function showTab(tabName) {
+        const tabs = document.querySelectorAll('.tab');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        for (let i = 0; i < tabs.length; i++) {
+          if (tabs[i].id === tabName) {
+            tabs[i].style.display = 'block';
+            tabBtns[i].classList.add('active-btn');
+          } else {
+            tabs[i].style.display = 'none';
+            tabBtns[i].classList.remove('active-btn');
+          }
+        }
+      }
+      
+      // Save the data for the selected tab
+      function saveData(tabName) {
+        const form = document.getElementById(tabName);
+        // Code to save the form data goes here
+      }
+
+      function logout() {
+    // Code to log out the user goes here
+    window.location.href= 'login.html'
+  }
+
+  function getPatientData() {
+    const patientId = 'patient'; // Replace with the actual patient ID pattern
+    const apiUrl = "https://fhir.simplifier.net/System-Project";
+  
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const resourceTable = document.getElementById("patient-table");
+        const tbody = resourceTable.getElementsByTagName("tbody")[0];
+        tbody.innerHTML = "";
+        // const headerRow = table.insertRow();
+        // const header1 = headerRow.insertCell();
+        // const header2 = headerRow.insertCell();
+        // const header3 = headerRow.insertCell();
+        // const header4 = headerRow.insertCell();
+        // header1.innerText = 'ID';
+        // header2.innerText = 'Family Name';
+        // header3.innerText = 'Name';
+        // header4.innerText = 'Gender';
+  
+        if(data && data.entry) {
+          data.entry.forEach(entry => {
+            const resource = entry.resource;
+            const row = tbody.insertRow();
+            if (resource.resourceType=="Patient"){
+              row.insertCell().innerHTML = resource.id || "";
+              row.insertCell().innerHTML = (resource.name[0].given[0] + ' ' + resource.name[0].family) || "";
+              row.insertCell().innerHTML = (resource.gender) || "";
+          /*const row = table.insertRow();
+          const cell1 = row.insertCell();
+          const cell2 = row.insertCell();
+          const cell3 = row.insertCell();
+          const cell4 = row.insertCell();
+          cell1.innerText = item.resource.attribute1; // Replace with the actual attribute names
+          cell2.innerText = item.resource.attribute2;
+          cell3.innerText = item.resource.attribute3;
+          cell4.innerText = item.resource.attribute4;*/
+        }});
+      
+    }
+      })
+      .catch(error => console.error(error));
+  }
+
+document.getElementById('patient-history').addEventListener('click', getPatientData);
+    </script>
+  </body>
+</html>

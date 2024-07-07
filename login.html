@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Physiotherapy Clinic Login</title>
+    <link rel="stylesheet" type="text/css" href="loginstyle.css">
+  </head>
+  <body>
+    <main class="login-page">
+      <div class="login">
+        <h2>Welcome To Physiotherapy Clinic</h2>
+        <form action="/login" method="POST">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username"><br><br>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password"><br><br>
+          <label for="role">Role:</label>
+          <select id="role" name="role">
+            <option value="doctor">Doctor</option>
+            <option value="nurse">Nurse</option>
+          </select><br><br>
+          <input type="submit" value="Login">
+        </form>
+      </div>
+    </main>
+    <script src="login.js"></script>
+
+    <script>
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          const role = document.getElementById('role').value;
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+          if (role === 'doctor') {
+            window.location.href = `nursingassessment.php?name=${username}&password=${password}`;
+          } else if (role === 'nurse') {
+            window.location.href = `nurse.html?name=${username}`;
+          } else {
+            alert('Please select a valid role.');
+          }
+        }
+        </script>
+  </body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Nurse View</title>
+    <!-- Add CSS styles for the tabs -->
+    <style>
+      body {
+      background-image: url("imageiStock-1058161032.jpeg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 80px;
+      max-width: 1000px;
+      margin: 120px auto;
+      font-family: Arial, sans-serif;
+    }
+      .tab {
+        display: inline-block;
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        border-radius: 4px 4px 0 0;
+        padding: 10px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      .active {
+        background-color: #ccc;
+      }
+      .tab-content {
+        display: none;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-top: none;
+      }
+      .active-content {
+        display: block;
+      }
+
+      table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  td {
+    padding: 10px;
+    text-align: center;
+  }
+
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      input[type="number"] {
+        padding: 2px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+       /* Style for the textboxes */
+      input[type="text"] {
+        padding: 2px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+       /* Style for the dropdown menus */
+      select {
+        padding: 1px;
+        border: 1px solid #e45050;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+        background-color: #ffffff;
+        color: #333;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+      select:hover {
+        background-color: #f7e5e5;
+      }
+
+  /* Style for the dropdown arrow */
+  select::-ms-expand {
+    display: none;
+  }
+  select::after {
+    content: '\25BC';
+    position: absolute;
+    top: calc(50% - 7px);
+    right: 10px;
+    font-size: 14px;
+    pointer-events: none;
+  }
+
+  /* Add styles for the cancel button */
+      .cancel-btn {
+        background-color: rgb(140, 81, 25);
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+
+      .cancel-btn:hover {
+        background-color: #c47309;
+      }
+
+      .yes-btn {
+        background-color: green;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+
+      .yes-btn:hover {
+        background-color: #228B22;
+      }
+
+      .request-btn {
+        background-color: green;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        cursor: pointer;
+
+      }
+      .request-btn:hover {
+        background-color: #228B22;
+      }
+      .accept-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+      .accept-btn:hover {
+        background-color: #228B22;
+      }
+
+      .reject-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+
+      .request-btn-container {
+        margin-bottom: 20px;
+         margin-top:40px;
+      }
+
+      .reject-btn:hover {
+        background-color: #B22222;
+      }
+
+  
+  /* Style the Save button */
+  .save-btn {
+    background-color: green;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        cursor: pointer;
+
+  }
+  .save-btn:hover {
+    background-color: #3e8e41;
+  }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome Back!</h1>
+    <!-- Add the tabs and their content -->
+    <div>
+      <div class="tab active" onclick="openTab(event, 'appointments')">View Appointments Requests</div>
+      <div class="tab" onclick="openTab(event, 'supplies')">Request Supplies</div>
+      <div class="tab" onclick="openTab(event, 'nursing-assessment')">Nursing Assessment</div>
+      <div class="tab" onclick="openTab(event, 'logout')">Logout</div>
+    </div>
+    <!-- Add the tab contents -->
+    <div id="appointments" class="tab-content active-content">
+      <table id="appointment-table">
+        <thead>
+          <tr>
+            <th>Patient Medical Number</th>
+            <th>Patient Name</th>
+            <th>Doctor Name</th>
+            <th>Date & Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="supplies" class="tab-content">
+      <table>
+        <tr>
+          <td>Supplement Name:</td>
+          <td>
+            <select name="supplement-name">
+              <option value="supplement1">Supplement 1</option>
+              <option value="supplement2">Supplement 2</option>
+              <option value="supplement3">Supplement 3</option>
+              <!-- Add more options as needed -->
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Supplement Brand:</td>
+          <td>
+            <select name="supplement-brand">
+              <option value="brand1">Brand 1</option>
+              <option value="brand2">Brand 2</option>
+              <option value="brand3">Brand 3</option>
+              <!-- Add more options as needed -->
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Quantity:</td>
+          <td><input type="number" name="quantity" min="1"></td>
+        </tr>
+        <tr>
+          <td>Hospital Name:</td>
+          <td><input type="text" name="hospital-name"></td>
+        </tr>
+      </table>
+      <div class="request-btn-container">
+        <button class="request-btn">Request</button>
+      </div>
+    </div>
+    <div id="nursing-assessment" class="tab-content">
+      <table>
+        <tr>
+          <td><label for="medical-number">Medical Number:</label></td>
+          <td><input type="text" id="medical-number" name="medical-number"></td>
+        </tr>
+        <tr>
+          <td><label for="temperature">Temperature:</label></td>
+          <td><input type="text" id="temperature" name="temperature"><span> C</span></td>
+        </tr>
+        <tr>
+          <td><label for="pulse">Pulse:</label></td>
+          <td><input type="text" id="pulse" name="pulse"><span> bpm</span></td>
+        </tr>
+        <tr>
+          <td><label for="blood-pressure">Blood Pressure:</label></td>
+          <td><input type="text" id="blood-pressure" name="blood-pressure"><span> mmHg</span></td>
+        </tr>
+        <tr>
+          <td><label for="weight">Weight:</label></td>
+          <td><input type="text" id="weight" name="weight"><span> kg</span></td>
+        </tr>
+        <tr>
+          <td><label for="height">Height:</label></td>
+          <td><input type="text" id="height" name="height"><span> cm</span></td>
+        </tr>
+        <tr>
+          <td><label for="blood-sugar">Blood Sugar:</label></td>
+          <td><input type="text" id="blood-sugar" name="blood-sugar"><span> mg/dL</span></td>
+        </tr>
+        <tr>
+          <td><label for="respiratory-rate">Respiratory Rate:</label></td>
+          <td><input type="text" id="respiratory-rate" name="respiratory-rate"><span> bpm</span></td>
+        </tr>
+      </table>
+      <div class="save-btn-container" style=" margin-top:40px;">
+        <button class="save-btn">Save</button>
+      </div>
+    </div>
+    <div id="logout" class="tab-content">
+      <h2>Are you sure you want to logout?</h2>
+      <button class="yes-btn" onclick="logout()">Yes</button>
+      <button class="cancel-btn" onclick="openTab(event, 'appointments')">Cancel</button>
+    </div>
+
+    <script>
+      function logout() {
+        window.location.href = "login.html";
+      }
+
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        // Get all tab contents and hide them
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        // Get all tab links and remove the "active" class from them
+        tablinks = document.getElementsByClassName("tab");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        // Show the content of the selected tab and mark the tab link as active
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+      }
+
+      function acceptAppointment() {
+        var appointmentRow = event.target.parentNode.parentNode;
+        var patientName = appointmentRow.querySelector("td:nth-child(2)").textContent;
+        var message = "Are you sure you want to accept the appointment for " + patientName + "?";
+        if (confirm(message)) {
+        alert("Appointment accepted for " + patientName);
+        appointmentRow.parentNode.removeChild(appointmentRow);
+        }
+      }
+
+      function rejectAppointment() {
+        var appointmentRow = event.target.parentNode.parentNode;
+        var patientName = appointmentRow.querySelector("td:nth-child(2)").textContent;
+        var message = "Are you sure you want to reject the appointment for " + patientName + "?";
+        if (confirm(message)) {
+        alert("Appointment rejected for " + patientName);
+        appointmentRow.parentNode.removeChild(appointmentRow);
+        }
+      }
+
+      const resourceUrl = "https://fhir.simplifier.net/System-Project";   
+        fetch(resourceUrl)
+            .then(response => response.json())
+            .then(data => {
+                const resourceTable = document.getElementById("appointment-table");
+                const tbody = resourceTable.getElementsByTagName("tbody")[0];
+                let rowNumber = 1;
+                if (data && data.entry) {
+                    data.entry.forEach(entry => {
+                        const resource = entry.resource;
+                        const row = tbody.insertRow();
+                        if (resource.type == "Appointment") {
+                            const element = resource.differential.element.find(el => el.id === "Appointment.PatientId");
+                            const element1 = resource.differential.element.find(el => el.id === "Appointment.PatientName");
+                            const element2 = resource.differential.element.find(el => el.id === "Appointment.DoctorName");
+                            const element3 = resource.date;
+
+                            const commentData = element.comment;
+                            const Commentdata = element1.comment;
+                            const Commentdata2 = element2.comment;
+
+                            const dateTimeParts = resource.date.split("T");
+                            const date = dateTimeParts[0];
+                            const time = dateTimeParts[1].substr(0, 8);
+                            const formattedDateTime = date + "/" + time;
+
+                            // Add the resource data to the existing cells
+                          
+                            row.insertCell().innerHTML = commentData;
+                            row.insertCell().innerHTML = Commentdata;
+                            row.insertCell().innerHTML = Commentdata2;
+                            row.insertCell().innerHTML = formattedDateTime || "";
+
+
+                            // Add new cell for the Accept and Reject buttons
+                            const buttonCell = row.insertCell();
+
+                            // Add Accept and Reject buttons to the new cell
+                            const acceptButton = document.createElement("button");
+                            acceptButton.innerText = "Accept";
+                            acceptButton.classList.add("accept-btn");
+                            buttonCell.appendChild(acceptButton);
+
+                            const rejectButton = document.createElement("button");
+                            rejectButton.innerText = "Reject";
+                            rejectButton.classList.add("reject-btn");
+                            buttonCell.appendChild(rejectButton);
+    
+}
+                    });
+                } else {
+                    console.error("Invalid data format received from the server.");
+                }
+            })
+            .catch(error => console.error(error));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tabbed Page</title>
+  <style>
+    /* Global Styles */
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: hwb(0 95% 5% / 0);
+      background-image: url("D:\/backgroundd.jpg");
+      margin: 0;
+      padding: 0;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+    /* Tab Styles */
+    .tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .tab {
+    padding: 10px 20px;
+    background-color: #ddd;
+    color: #333;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
+    }
+
+    .tab.active {
+    background-color: #2196F3;
+    color: white;
+    }
+
+    /* Request Supplies Tab Styles */
+    #request-supplies {
+     display: none;
+    }
+
+    /* Common Styles */
+    .container {
+     max-width: 800px;
+     margin: 50px auto;
+     padding: 20px;
+     background-color: #fff;
+     border-radius: 5px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+     text-align: center;
+     margin-top: 0;
+    }
+
+    body {
+    font-family: Arial, sans-serif;
+    background-color: hwb(0 95% 5% / 0);
+    background-image: url("D:\/backgroundd.jpg");
+    background-color: hwb(0 95% 5% / 0);
+
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    }
+
+    /* Schedule Styles */
+    .schedule {
+     margin-top: 20px;
+    }
+
+    .schedule-table {
+     width: 100%;
+     border-collapse: collapse;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+     padding: 10px;
+     text-align: left;
+     border-bottom: 1px solid #ccc;
+     background-color: hwb(0 95% 5% / 0);
+
+    }
+
+/* Button Styles */
+.view-button,
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.accept-button {
+  background-color: #4CAF50;
+}
+
+.reject-button {
+  background-color: #F44336;
+}
+
+/* Request Supplies Styles */
+.form-container {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 5px;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
+    /* Container Styles */
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: hwb(0 95% 5% / 0);
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    /* Tab Styles */
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      background-color: #ccc;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .tab.active {
+      background-color: #f0f0f0;
+    }
+
+    /* Tab Content Styles */
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Schedule Styles */
+
+    .schedule {
+      margin-top: 20px;
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    /* Button Styles */
+
+    .view-button {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .accept-button {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .reject-button {
+      background-color: #f44336;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" onclick="openTab(event, 'schedule')">Schedule</div>
+    <div class="tab" onclick="openTab(event, 'request-supplies')">Request Supplies</div>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="container">
+    <div class="tab-content active" id="schedule">
+      <h2>Schedule</h2>
+      <button class="view-button" onclick="showSchedule()">View Schedule</button>
+
+      <div class="schedule" id="schedule-table" style="display: none;">
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Day</th>
+              <th>Patient Name</th>
+              <th>Doctor Name</th>
+              <th>Appointment</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2023-06-22</td>
+              <td>Sunday</td>
+              <td>Ahmed Adel</td>
+              <td>Dr. Saad</td>
+              <td>10:00 AM</td>
+              <td>
+                <button class="accept-button" onclick="acceptAppointment(1)">Accept</button>
+                <button class="reject-button" onclick="rejectAppointment(1)">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2023-06-22</td>
+              <td>Sunday</td>
+              <td>Gamal Abdelrahman</td>
+              <td>Dr. Saad</td>
+              <td>11:00 AM</td>
+              <td>
+                <button class="accept-button" onclick="acceptAppointment(2)">Accept</button>
+                <button class="reject-button" onclick="rejectAppointment(2)">Reject</button>
+              </td>
+            </tr>
+            <!-- Add more rows for other appointments -->
+            <tr>
+              <td>2023-06-23</td>
+              <td>Sunday</td>
+              <td>Mazen Sayed</td>
+              <td>Dr. Mark</td>
+              <td>12:00 PM</td>
+              <td>
+                <button class="accept-button" onclick="acceptAppointment(3)">Accept</button>
+                <button class="reject-button" onclick="rejectAppointment(3)">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2023-06-24</td>
+              <td>Monday</td>
+              <td>Sara Mohamed</td>
+              <td>Dr. Mark</td>
+              <td>1:00 PM</td>
+              <td>
+                <button class="accept-button" onclick="acceptAppointment(4)">Accept</button>
+                <button class="reject-button" onclick="rejectAppointment(4)">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2023-06-24</td>
+              <td>Monday</td>
+              <td>Mariam Ahmed</td>
+              <td>Dr. Saad</td>
+              <td>3:00 PM</td>
+              <td>
+                <button class="accept-button" onclick="acceptAppointment(5)">Accept</button>
+                <button class="reject-button" onclick="rejectAppointment(5)">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2023-06-25</td>
+              <td>Monday</td>
+              <td>Samira Mohamed</td>
+              <td>Dr. Saad</td>
+              <td>4:00 PM</td>
+              <td>
+                <button class="accept-button" onclick="acceptAppointment(6)">Accept</button>
+                <button class="reject-button" onclick="rejectAppointment(6)">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2023-06-25</td>
+              <td>Monday</td>
+              <td>Samar Helmy</td>
+              <td>Dr. Saad</td>
+              <td>4:30 PM</td>
+              <td>
+                <button class="accept-button" onclick="acceptAppointment(7)">Accept</button>
+                <button class="reject-button" onclick="rejectAppointment(7)">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2023-06-25</td>
+              <td>Monday</td>
+              <td>Diaa Hamed</td>
+              <td>Dr. Saad</td>
+              <td>7:30 PM</td>
+              <td>
+                <button class="accept-button" onclick="acceptAppointment(8)">Accept</button>
+                <button class="reject-button" onclick="rejectAppointment(8)">Reject</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="tab-content" id="request-supplies">
+    <h2>Request Supplies</h2>
+    <form id="supplyForm">
+        <div class="form-group">
+          <label for="supplyName">Supply Name:</label>
+          <input type="text" id="supplyName" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="brand">Brand:</label>
+          <select id="brand" required>
+            <option value="">Select Brand</option>
+            <option value="Brand A">Compex</option>
+            <option value="Brand B">Omron</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <input type="submit" value="Request Supplies">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Rest of the HTML content -->
+  <!-- ... -->
+
+  <script>
+    // Function to switch between tabs
+    function openTab(evt, tabName) {
+      // Get all tab content elements and hide them
+      var tabContent = document.getElementsByClassName("tab-content");
+      for (var i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+      }
+
+      // Get all tab elements and remove the active class
+      var tabs = document.getElementsByClassName("tab");
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].className = tabs[i].className.replace(" active", "");
+      }
+
+      // Show the selected tab content and set the corresponding tab as active
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    function showSchedule() {
+      var scheduleTable = document.getElementById("schedule-table");
+      scheduleTable.style.display = "block";
+    }
+
+    function acceptAppointment(appointmentId) {
+      // Perform logic for accepting the appointment with the given ID
+      console.log("Accept appointment with ID:", appointmentId);
+    }
+
+    function rejectAppointment(appointmentId) {
+      // Perform logic for rejecting the appointment with the given ID
+      console.log("Reject appointment with ID:", appointmentId);
+    }
+  </script>
+</body>
+</html>

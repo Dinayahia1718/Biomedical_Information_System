@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nutrition Clinic Login</title>
+  <style>
+    /* Global Styles */
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      font-family: Arial, sans-serif;
+      background-image: url("D:\/background.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Container Styles */
+
+    .container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(155, 10, 10, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    /* Form Styles */
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .form-group input[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .form-group input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <form action="#" method="POST" id="loginForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="role">Role:</label>
+        <select id="role" name="role" required>
+          <option value="">Select a role</option>
+          <option value="doctor">Doctor</option>
+          <option value="nurse">Nurse</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Login">
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+      
+      // Retrieve form values
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      var role = document.getElementById("role").value;
+      
+      // Perform login validation here (you can replace this with your own logic)
+      if (username === "admin" && password === "password" && role !== "") {
+        alert("Login successful! Role: " + role);
+        // Redirect to the appropriate page based on role
+        if (role === "doctor") {
+          window.location.href = "Doctor.html";
+        } else if (role === "nurse") {
+          window.location.href = "Nurse.html";
+        }
+      } else {
+        alert("Invalid credentials. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
